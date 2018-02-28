@@ -1,28 +1,25 @@
 var express = require('express')
 var router = express.Router()
+var faker = require('faker')
 
-const categories = [{
-    id: '1',
-    name: 'One'
-}, {
-    id: '2',
-    name: 'Two'
-}, {
-    id: '3',
-    name: 'Three'
-}]
+faker.seed(1337)
 
-const products = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16].map(n => ({
-    id: n.toString(),
-    name: `P${n}`,
-    description: `P${n} description`,
-    category: categories[n % categories.length],
+const categories = Array(3).fill(true).map((v, i) => ({
+    id: i,
+    name: faker.commerce.department(),
+}))
+
+const products = Array(16).fill(true).map((v, i) => ({
+    id: i,
+    name: faker.commerce.productName(),
+    description: faker.lorem.sentences(3),
+    category: categories[i % categories.length],
     state: 'new',
     dateCreated: new Date(),
     lastUpdated: new Date(),
-    ownerAddress: 'asdjfl',
-    beneficiaryAddress: 'sdkjflk',
-    pricePerSecond: 10,
+    ownerAddress: faker.random.uuid().replace(/\-/g, ''),
+    beneficiaryAddress: faker.random.uuid().replace(/\-/g, ''),
+    pricePerSecond: faker.random.number({ min: 10, max: 300 }),
     priceCurrency: 'DATA',
     minimumSubscriptionInSeconds: 0
 }))
