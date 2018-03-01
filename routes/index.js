@@ -29,13 +29,15 @@ router.get('/products', function (req, res) {
     res.json(products)
 })
 router.get('/products/:id', function (req, res) {
-    res.json(products.find(p => p.id === req.params.id))
+    const id = parseInt(req.params.id, 10)
+    res.json(products.find(p => p.id === id))
 })
 router.get('/categories', function (req, res) {
     res.json(categories)
 })
 router.get('/categories/:id/products', function (req, res) {
-    res.json(products.filter(p => p.category.id === categories.find(c => c.id === req.params.id).id))
+    const id = parseInt(req.params.id, 10)
+    res.json(products.filter(p => p.category.id === categories.find(c => c.id === id).id))
 })
 
 module.exports = router
