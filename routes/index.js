@@ -19,7 +19,7 @@ const streams = Array(24).fill(true).map((v, i) => ({
 }))
 
 const products = Array(16).fill(true).map((v, i) => {
-    const streamIds = Array(Math.floor(Math.random() * 4)).fill(true).map(() => streams[Math.floor(Math.random() * streams.length)].id)
+    const streamIds = Array(faker.random.number({ max: 3 })).fill(true).map(() => faker.random.arrayElement(streams).id);
 
     return {
         id: i,
