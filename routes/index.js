@@ -47,6 +47,12 @@ router.get('/products/:id', function (req, res) {
     const id = parseInt(req.params.id, 10)
     res.json(products.find(p => p.id === id))
 })
+router.get('/products/:id/streams', function (req, res) {
+    const id = parseInt(req.params.id, 10)
+    const product = products.find(p => p.id === id)
+
+    res.json(product.streams.map((id) => streams[id]))
+})
 router.get('/categories', function (req, res) {
     res.json(categories)
 })
