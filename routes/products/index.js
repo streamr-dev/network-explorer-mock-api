@@ -12,7 +12,7 @@ const sorters = {
 
 const middlewares = {
     init: (req, res, next) => {
-        res.locals.result = products
+        res.locals.result = [].concat(products)
         next()
     },
     filterBySearch: (req, res, next) => {
