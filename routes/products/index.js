@@ -32,7 +32,7 @@ const middlewares = {
         next()
     },
     sort: (req, res, next) => {
-        const sortBy = req.query.sort_by
+        const sortBy = req.query.sortBy
         const products = res.locals.result
         if (sorters.hasOwnProperty(sortBy)) {
             res.locals.result = products.sort(sorters[sortBy])
