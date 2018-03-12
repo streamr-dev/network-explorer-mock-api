@@ -8,6 +8,7 @@ const sorters = {
         return name0 < name1 ? -1 : (name0 === name1 ? 0 : 1)
     },
     dateCreated: (p0, p1) => p0.dateCreated - p1.dateCreated,
+    price: (p0, p1) => p0.pricePerSecond - p1.pricePerSecond,
 }
 
 const middlewares = {
