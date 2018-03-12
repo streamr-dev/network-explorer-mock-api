@@ -1,18 +1,6 @@
 const router = require('express').Router()
 const { products, streams } = require('../../lib/data')
 
-const filteredProducts = (filter) => {
-    const search = filter.search || ''
-
-    if (!/^\s*$/.test(search)) {
-        return products.filter(p => p.name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-    } else {
-        return products
-    }
-}
-
-const isEmpty = (value) => !value ||/^\s*$/.test(value)
-
 const sorters = {
     name: (p0, p1) => {
         const name0 = p0.name.toLowerCase()
