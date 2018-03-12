@@ -39,9 +39,19 @@ const products = Array(16).fill(true).map((v, i) => {
     }
 })
 
+const filteredProducts = (filter) => {
+    const search = filter.search || ''
+
+    if (!/^\s*$/.test(search)) {
+        return products.filter(p => p.name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+    } else {
+        return products
+    }
+}
+
 /* GET home page. */
 router.get('/products', function (req, res) {
-    res.json(products)
+    res.json(filteredProducts({ search: req.query.search }))
 })
 router.get('/products/:id', function (req, res) {
     const id = parseInt(req.params.id, 10)
