@@ -13,6 +13,15 @@ const filteredProducts = (filter) => {
 
 const isEmpty = (value) => !value ||/^\s*$/.test(value)
 
+const sorters = {
+    name: (p0, p1) => {
+        const name0 = p0.name.toLowerCase()
+        const name1 = p1.name.toLowerCase()
+        return name0 < name1 ? -1 : (name0 === name1 ? 0 : 1)
+    },
+    dateCreated: (p0, p1) => p0.dateCreated - p1.dateCreated,
+}
+
 const middlewares = {
     init: (req, res, next) => {
         res.locals.result = products
@@ -34,6 +43,14 @@ const middlewares = {
         }
         next()
     },
+    sort: (req, res, next) => {
+        const sortBy = req.query.sort_by
+        const products = res.locals.result
+        if (sorters.hasOwnProperty(sortBy)) {
+            res.locals.result = products.sort(sorters[sortBy])
+        }
+        next()
+    },
     findById: (req, res, next) => {
         const productId = parseInt(req.params.id, 10)
         res.locals.result = res.locals.result.find(p => p.id === productId)
@@ -52,6 +69,7 @@ router.get('/',
     middlewares.init,
     middlewares.filterBySearch,
     middlewares.filterByCategory,
+    middlewares.sort,
     middlewares.render
 )
 
