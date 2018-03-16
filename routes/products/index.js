@@ -75,4 +75,16 @@ router.get('/:id/streams',
     middlewares.render
 )
 
+router.post('/', function(req, res) {
+
+console.log(req.body)
+    const product = Object.assign({}, req.body, {
+        id: products.length,
+    })
+
+    products.push(product)
+
+    res.send(product);
+});
+
 module.exports = router
