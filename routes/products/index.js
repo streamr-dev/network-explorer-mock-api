@@ -76,8 +76,6 @@ router.get('/:id/streams',
 )
 
 router.post('/', function(req, res) {
-
-console.log(req.body)
     const product = Object.assign({}, req.body, {
         id: products.length,
     })
