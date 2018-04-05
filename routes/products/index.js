@@ -58,7 +58,7 @@ const middlewares = {
     }
 }
 
-router.get('/', 
+router.get('/',
     middlewares.init,
     middlewares.filterBySearch,
     middlewares.filterByCategory,
@@ -79,15 +79,25 @@ router.get('/:id/streams',
     middlewares.render
 )
 
-router.post('/', function(req, res) {
-    const product = Object.assign({}, req.body, {
+router.post('/', (req, res) => {
+    const product = {
+        ...req.body,
         id: products.length,
-    })
+    }
 
     products.push(product)
 
-    res.send(product);
-});
+    res.send(product)
+})
+
+router.put('/:id', middlewares.init, middlewares.findById, (req, res) => {
+    const product = {
+        ...res.locals.result,
+        ...req.body
+    }
+
+    res.send(product)
+})
 
 router.put('/:id',
     middlewares.init,
