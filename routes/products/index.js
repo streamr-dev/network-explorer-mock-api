@@ -49,6 +49,10 @@ const middlewares = {
         res.locals.result = res.locals.result.streams.map(streamId => streams[streamId])
         next()
     },
+    update: (req, res, next) => {
+        Object.assign(res.locals.result, req.body)
+        next()
+    },
     render: (req, res) => {
         res.json(res.locals.result)
     }
@@ -84,5 +88,12 @@ router.post('/', function(req, res) {
 
     res.send(product);
 });
+
+router.put('/:id',
+    middlewares.init,
+    middlewares.findById,
+    middlewares.update,
+    middlewares.render
+)
 
 module.exports = router
