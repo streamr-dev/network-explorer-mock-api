@@ -1,17 +1,9 @@
-const express = require('express')
-const app = express()
+const router = require('express').Router()
 
-app.locals.loggedIn = false
+router.use('/products', require('./products'))
+router.use('/categories', require('./categories'))
+router.use('/streams', require('./streams'))
+router.use('/users', require('./users'))
+router.use('/integration_keys', require('./integration_keys'))
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*")
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
-    next()
-})
-app.use('/products', require('./products'))
-app.use('/categories', require('./categories'))
-app.use('/streams', require('./streams'))
-app.use('/users', require('./users'))
-app.use('/integration_keys', require('./integration_keys'))
-
-module.exports = app
+module.exports = router
