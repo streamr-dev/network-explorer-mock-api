@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { userKeys, loginError } = require('../../lib/data')
+const { user, userKeys, loginError } = require('../../lib/data')
 
 router.get('/login', (req, res) => {
     req.app.locals.loggedIn = true
@@ -11,6 +11,10 @@ router.get('/logout', (req, res) => {
     req.app.locals.loggedIn = false
 
     res.send('Logged out!')
+})
+
+router.get('/me', (req, res) => {
+    req.app.locals.loggedIn ? res.json(user) : res.status(401).json(loginError)
 })
 
 router.get('/me/keys', (req, res) => {
