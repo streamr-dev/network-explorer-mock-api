@@ -32,6 +32,14 @@ const middlewares = {
         }
         next()
     },
+    filterByMaxPrice: (req, res, next) => {
+        const maxPrice = parseInt(req.query.maxPrice, 10)
+        const products = res.locals.result
+        if (!isNaN(maxPrice)) {
+            res.locals.result = products.filter(p => p.pricePerSecond <= maxPrice)
+        }
+        next()
+    },
     sort: (req, res, next) => {
         const sortBy = req.query.sortBy
         const products = res.locals.result
@@ -62,6 +70,7 @@ router.get('/',
     middlewares.init,
     middlewares.filterBySearch,
     middlewares.filterByCategory,
+    middlewares.filterByMaxPrice,
     middlewares.sort,
     middlewares.render
 )
