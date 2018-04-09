@@ -1,8 +1,10 @@
 const router = require('express').Router()
-const { integrationKeys, loginError } = require('../../lib/data')
+const { integrationKeys } = require('../../lib/data')
+const { renderJson, authorize } = require('../../lib/helpers')
 
-router.get('/', (req, res) => {
-    req.app.locals.loggedIn ? res.json(integrationKeys) : res.status(401).json(loginError)
-})
+router.get('/',
+    authorize,
+    renderJson(integrationKeys),
+)
 
 module.exports = router

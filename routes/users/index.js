@@ -1,24 +1,25 @@
 const router = require('express').Router()
-const { user, userKeys, loginError } = require('../../lib/data')
+const { user, userKeys } = require('../../lib/data')
+const { renderText, setLoggedIn, renderJson, authorize } = require('../../lib/helpers')
 
-router.get('/login', (req, res) => {
-    req.app.locals.loggedIn = true
+router.get('/login',
+    setLoggedIn(true),
+    renderText('Logged in!'),
+)
 
-    res.send('Logged in!')
-})
+router.get('/logout',
+    setLoggedIn(false),
+    renderText('Logged out!'),
+)
 
-router.get('/logout', (req, res) => {
-    req.app.locals.loggedIn = false
+router.get('/me', 
+    authorize,
+    renderJson(user),
+)
 
-    res.send('Logged out!')
-})
-
-router.get('/me', (req, res) => {
-    req.app.locals.loggedIn ? res.json(user) : res.status(401).json(loginError)
-})
-
-router.get('/me/keys', (req, res) => {
-    req.app.locals.loggedIn ? res.json(userKeys) : res.status(401).json(loginError)
-})
+router.get('/me/keys',
+    authorize,
+    renderJson(userKeys),
+)
 
 module.exports = router
