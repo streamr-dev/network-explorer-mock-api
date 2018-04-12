@@ -40,14 +40,6 @@ const middlewares = {
         }
         next()
     },
-    filterByUser: (req, res, next) => {
-        const userId = parseInt(req.query.userId, 10)
-        const { result: products } = res.locals
-        if (!isNaN(userId)) {
-            res.locals.result = products.slice(userId, userId + 3)
-        }
-        next()
-    },
     sort: (req, res, next) => {
         const sortBy = req.query.sortBy
         const products = res.locals.result
@@ -79,7 +71,6 @@ router.get('/',
     middlewares.filterBySearch,
     middlewares.filterByCategory,
     middlewares.filterByMaxPrice,
-    middlewares.filterByUser,
     middlewares.sort,
     middlewares.render
 )

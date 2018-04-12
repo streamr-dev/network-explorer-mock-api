@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { user, userKeys } = require('../../lib/data')
+const { user, userKeys, products } = require('../../lib/data')
 const { renderText, setLoggedIn, renderJson, authorize } = require('../../lib/helpers')
 
 router.get('/login',
@@ -20,6 +20,11 @@ router.get('/me',
 router.get('/me/keys',
     authorize,
     renderJson(userKeys),
+)
+
+router.get('/me/products',
+    authorize,
+    renderJson(products.slice(0,4)),
 )
 
 module.exports = router
