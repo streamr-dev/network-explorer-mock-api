@@ -4,7 +4,7 @@ const { renderJson, authorize } = require('../../lib/helpers')
 
 router.get('/',
     authorize,
-    renderJson(products.slice(0,4).map(product => ({
+    renderJson(products.slice(4,8).map(product => ({
         address: "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
         endsAt: new Date().toUTCString(),
         product: { ...product }
