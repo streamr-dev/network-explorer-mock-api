@@ -61,6 +61,14 @@ const middlewares = {
         Object.assign(res.locals.result, req.body)
         next()
     },
+    deployFree: (req, res, next) => {
+        Object.assign(res.locals.result, { state: 'DEPLOYED' })
+        next()
+    },
+    undeployFree: (req, res, next) => {
+        Object.assign(res.locals.result, { state: 'NOT_DEPLOYED' })
+        next()
+    },
     render: (req, res) => {
         res.json(res.locals.result)
     }
@@ -102,6 +110,20 @@ router.put('/:id',
     middlewares.init,
     middlewares.findById,
     middlewares.update,
+    middlewares.render
+)
+
+router.post('/:id/deployFree',
+    middlewares.init,
+    middlewares.findById,
+    middlewares.deployFree,
+    middlewares.render
+)
+
+router.post('/:id/undeployFree',
+    middlewares.init,
+    middlewares.findById,
+    middlewares.undeployFree,
     middlewares.render
 )
 
