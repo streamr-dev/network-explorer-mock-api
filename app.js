@@ -26,6 +26,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Add random delay
+app.use((req, res, next) => {
+    setTimeout(next, Math.floor((Math.random() * 2000) + 100));
+});
+
 app.use('/', index);
 
 // catch 404 and forward to error handler
