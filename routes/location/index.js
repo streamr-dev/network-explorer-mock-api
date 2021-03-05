@@ -1,8 +1,8 @@
 const router = require('express').Router()
-const { categories } = require('../../lib/data')
+const { nodes } = require('../../lib/data')
 
 router.get('/', (req, res) => {
-    res.json(categories)
+    res.json(nodes)
 })
 
 module.exports = router
