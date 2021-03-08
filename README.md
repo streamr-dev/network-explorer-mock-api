@@ -1,4 +1,4 @@
-# marketplace-mock-api
+# network-explorer-mock-api
 
 ## running
 ```
