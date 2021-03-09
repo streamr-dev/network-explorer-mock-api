@@ -12,7 +12,6 @@
     "cors": "^2.8.4",
     "countries-list": "^2.6.1",
     "debug": "~2.6.9",
-    "ethereumjs-wallet": "^1.0.1",
     "express": "~4.15.5",
     "faker": "^5.3.1",
     "jade": "~1.11.0",
